@@ -1,5 +1,5 @@
 #importing libraries
-import os
+# import os
 # import numpy as np
 import flask
 import pickle
@@ -8,9 +8,6 @@ import pandas as pd
 
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-PORT = int(os.environ.get("PORT",5000))
-
 df = pd.read_csv("datawithoutnanflair.csv")
 
 vectorizer = TfidfVectorizer()
@@ -84,4 +81,4 @@ def result():
         return render_template("result.html",prediction=prediction)
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = PORT, debug=True)
+    app.run(debug=True)
