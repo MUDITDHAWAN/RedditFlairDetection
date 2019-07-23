@@ -1,0 +1,27 @@
+<html>
+<body>
+    <h1> {{ prediction }}</h1>
+
+<h3>to enter again</h3>
+
+<div>
+  <form action="/result" method="POST">
+    <label for="url">USER NAME</label>
+    <input type="text"  name="url">
+<!-- 
+    <br>
+    <label for="c_gain">LINK TEXT </label>
+    <input type="text"  name="c_gain">
+    <br>
+    <label for="c_loss">ENTIRE TEXT </label>
+    <input type="text"  name="c_loss">
+    <br>
+    <label for="hours_per_week">TIMESTAMP </label>
+    <input type="text" name="hours_per_week">btw:[0-99999]
+    <br> -->
+    
+    <input type="submit" value="Submit">
+  </form>
+</div>
+</body>
+</html>
