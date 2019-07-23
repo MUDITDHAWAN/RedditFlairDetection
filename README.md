@@ -1,5 +1,6 @@
 # precogflairdetection
 
+web app link: https://predictflairprecog.herokuapp.com/
 uploaded files:
 datafinal.csv : final data with flairs only corresponding to r/india
 datawithoutnanflair.csv  : data used for model creation 
