@@ -1,5 +1,5 @@
 #importing libraries
-# import os
+import os
 # import numpy as np
 import flask
 import pickle
@@ -8,6 +8,9 @@ import pandas as pd
 
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+PORT = int(os.environ.get("PORT",5000))
+
 df = pd.read_csv("datawithoutnanflair.csv")
 
 vectorizer = TfidfVectorizer()
@@ -36,14 +39,6 @@ label_encoder = preprocessing.LabelEncoder()
 Y= label_encoder.fit_transform(y)
 
 x8=vectorizer.fit_transform(xnew)
-#creating instance of the class
-app=Flask(__name__)
-
-#to tell flask what url shoud trigger the function index()
-@app.route('/')
-@app.route('/index')
-def index():
-    return flask.render_template('index.html')
 
 # prediction function
 def ValuePredictor(to_predict_list):
@@ -53,6 +48,20 @@ def ValuePredictor(to_predict_list):
     result=label_encoder.inverse_transform(result)
     return result
 
+#creating instance of the class
+app=Flask(__name__)
+
+#to tell flask what url shoud trigger the function index()
+@app.route('/')
+@app.route('/index')
+@app.route('/index',methods = ['POST'])
+def index():
+    return flask.render_template('index.html')
+
+
+@app.route('/statistics',methods = ['POST'])
+def statistics():
+    return flask.render_template('statistics.html')
 
 
 @app.route('/result',methods = ['POST'])
@@ -61,6 +70,7 @@ def result():
     if request.method == 'POST':
         to_predict_list = request.form.to_dict()
         to_predict_list=list(to_predict_list.values())
+        print(to_predict_list)
         to_predict_list=to_predict_list[0].split("/")[-2].replace("_"," ")
         print(to_predict_list)
         new=[]
@@ -81,4 +91,4 @@ def result():
         return render_template("result.html",prediction=prediction)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host = '0.0.0.0', port = PORT, debug=True)
